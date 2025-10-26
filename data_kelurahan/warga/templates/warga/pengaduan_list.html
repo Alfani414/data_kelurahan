@@ -21,12 +21,18 @@
                 <p>{{ pengaduan.deskripsi }}</p>
                 <p><strong>Status:</strong> {{ pengaduan.get_status_display }}</p>
                 <p><strong>Tanggal Pengaduan:</strong> {{ pengaduan.tanggal_pengaduan|date:"d M Y, H:i" }}</p>
+
+                <!-- Tambahan link edit & hapus -->
+                <p>
+                    <a href="{% url 'pengaduan_edit' pengaduan.pk %}">Edit</a> |
+                    <a href="{% url 'pengaduan_delete' pengaduan.pk %}">Hapus</a>
+                </p>
+
                 <hr>
             </li>
         {% empty %}
             <li>Tidak ada pengaduan yang tercatat.</li>
         {% endfor %}
     </ul>
-
 </body>
 </html>
