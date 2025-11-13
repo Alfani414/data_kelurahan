@@ -71,6 +71,7 @@ class PengaduanDeleteView(DeleteView):
 #     queryset = Pengaduan.objects.all()
 #     serializer_class = PengaduanSerializer
 
+# ViewSets
 class WargaViewSet(viewsets.ModelViewSet):
     queryset = Warga.objects.all().order_by('-tanggal_registrasi')
     serializer_class = WargaSerializer
