@@ -1,10 +1,12 @@
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView  #tambah
-from .models import Warga, Pengaduan
+
 from django.urls import reverse_lazy
 from .forms import WargaForm, PengaduanForm
-from rest_framework.generics import ListAPIView, RetrieveAPIView  #tambah
+#from rest_framework.generics import ListAPIView, RetrieveAPIView  #tambah
 from .serializers import WargaSerializer, PengaduanSerializer  #tambah
+from .models import Warga, Pengaduan
+from rest_framework import viewsets  #tambah
 
 
 # Create your views here.
@@ -53,18 +55,26 @@ class PengaduanDeleteView(DeleteView):
 
 
 # API Views
-class WargaListAPIView(ListAPIView):
-    queryset = Warga.objects.all()
+# class WargaListAPIView(ListAPIView):
+#     queryset = Warga.objects.all()
+#     serializer_class = WargaSerializer
+
+# class WargaDetailAPIView(RetrieveAPIView):
+#     queryset = Warga.objects.all()
+#     serializer_class = WargaSerializer
+
+# class PengaduanListAPIView(ListAPIView):
+#     queryset = Pengaduan.objects.all()
+#     serializer_class = PengaduanSerializer
+
+# class PengaduanDetailAPIView(RetrieveAPIView):
+#     queryset = Pengaduan.objects.all()
+#     serializer_class = PengaduanSerializer
+
+class WargaViewSet(viewsets.ModelViewSet):
+    queryset = Warga.objects.all().order_by('-tanggal_registrasi')
     serializer_class = WargaSerializer
 
-class WargaDetailAPIView(RetrieveAPIView):
-    queryset = Warga.objects.all()
-    serializer_class = WargaSerializer
-
-class PengaduanListAPIView(ListAPIView):
-    queryset = Pengaduan.objects.all()
-    serializer_class = PengaduanSerializer
-
-class PengaduanDetailAPIView(RetrieveAPIView):
-    queryset = Pengaduan.objects.all()
+class PengaduanViewSet(viewsets.ModelViewSet):
+    queryset = Pengaduan.objects.all().order_by('-tanggal_pengaduan')
     serializer_class = PengaduanSerializer
